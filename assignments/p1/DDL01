@@ -1,0 +1,86 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database Practice;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use Practice;
+Database changed
+mysql> create table Menu(
+    -> ItemCode varchar(5) Primary key,
+    -> ItemName varchar(20),
+    -> Category varchar(20),
+    -> Price Decimal(5,2)
+    -> );
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> ALTER table Menu add quantity int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Menu RENAME COLUMN ItemCode To Name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table Menu add column validity DATE FIRST;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table Menu to Menu_Card;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to Menu_Card' at line 1
+mysql> ALTER table Menu RENAME to Menu_Card;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> ALTER table Menu_Card MODIFY ItemCode int;
+ERROR 1054 (42S22): Unknown column 'ItemCode' in 'menu_card'
+mysql> desc Menu_Card;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| validity | date         | YES  |     | NULL    |       |
+| Name     | varchar(5)   | NO   | PRI | NULL    |       |
+| ItemName | varchar(20)  | YES  |     | NULL    |       |
+| Category | varchar(20)  | YES  |     | NULL    |       |
+| Price    | decimal(5,2) | YES  |     | NULL    |       |
+| quantity | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> ALTER table Menu_Card DROP validity;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER table Menu_Card CHANGE quantity To itemQuantity;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'To itemQuantity' at line 1
+mysql> ALTER table Menu_Card CHANGE quantity itemQuantity int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ^C
+mysql> ^C
+mysql> ALTER TABLE Menu_Card MODIFY Name Varchar(20) NOT NULL Unique;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE Menu_Card ALTER  itemQuantity SET DEFAULT 1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DROP TABLE Menu_Card;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> DROP DATABASE Practice;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+

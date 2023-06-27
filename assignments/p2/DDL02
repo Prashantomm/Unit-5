@@ -1,0 +1,87 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.33 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database Event_Management;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use Event_Management;
+Database changed
+mysql> create table event(
+    -> EventId int primary key,
+    -> Event varchar(50),
+    -> DateEvent date,
+    -> NumPerformers int);
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc event;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| EventId       | int         | NO   | PRI | NULL    |       |
+| Event         | varchar(50) | YES  |     | NULL    |       |
+| DateEvent     | date        | YES  |     | NULL    |       |
+| NumPerformers | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> ALTER TABLE event ADD COLUMN Address varchar(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table EVENT rename column Event to EventMame;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>  alter table event modify column EventMame varchar(20) not null;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table event modify column DateEvent date not null;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table event drop primary key;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table event modify column DateEvent date not null unique;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table event drop column DateEvent;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table event add column id int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc event;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| EventId       | int         | NO   |     | NULL    |       |
+| EventMame     | varchar(20) | NO   |     | NULL    |       |
+| NumPerformers | int         | YES  |     | NULL    |       |
+| Address       | varchar(20) | YES  |     | NULL    |       |
+| id            | int         | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table event;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> drop database Event_Management;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
